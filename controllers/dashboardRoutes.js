@@ -50,7 +50,7 @@ router.get('/:id', async (req, res) => {
 
 
         const dPost = post.get({ plain: true });
-            // res.status(200).json({editPost})
+            
             res.render('postFunction', {
                 dPost, 
            
