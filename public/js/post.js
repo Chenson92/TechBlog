@@ -1,47 +1,86 @@
-const newFormHandler = async (event) => {
+async function newFormHandler(event) {
   event.preventDefault();
 
-  const name = document.querySelector('#project-name').value.trim();
-  const needed_funding = document.querySelector('#project-funding').value.trim();
-  const description = document.querySelector('#project-desc').value.trim();
+  const title = document.querySelector('input[name="post-title"]').value;
+  const content = document.querySelector('input[name="content"]').value;
 
-  if (name && needed_funding && description) {
-    const response = await fetch(`/api/projects`, {
-      method: 'POST',
-      body: JSON.stringify({ name, needed_funding, description }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      document.location.replace('/profile');
-    } else {
-      alert('Failed to create project');
+  const response = await fetch(`/api/posts`, {
+    method: 'POST',
+    body: JSON.stringify({
+      title,
+      content
+    }),
+    headers: {
+      'Content-Type': 'application/json'
     }
+  });
+
+  if (response.ok) {
+    document.location.replace('/dashboard');
+  } else {
+    alert(response.statusText);
   }
 };
 
-const delButtonHandler = async (event) => {
-  if (event.target.hasAttribute('data-id')) {
-    const id = event.target.getAttribute('data-id');
+document.querySelector('#new-post-form').addEventListener('submit', newFormHandler);
 
-    const response = await fetch(`/api/projects/${id}`, {
+async function deleteFormHandler(event) {
+  event.preventDefault();
+
+  const id = window.location.toString().split('/')[
+      window.location.toString().split('/').length - 1
+    ];
+    
+    const response = await fetch(`/api/posts/${id}`, {
       method: 'DELETE',
+      body: JSON.stringify({
+        post_id: id
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
-
+    
     if (response.ok) {
-      document.location.replace('/profile');
+      document.location.replace('/dashboard/');
     } else {
-      alert('Failed to delete project');
+      alert(response.statusText);
     }
-  }
-};
+    
+}
 
-document
-  .querySelector('.new-project-form')
-  .addEventListener('submit', newFormHandler);
+document.querySelector('.delete-post-btn').addEventListener('click', deleteFormHandler);
 
-document
-  .querySelector('.project-list')
-  .addEventListener('click', delButtonHandler);
+async function editFormHandler(event) {
+  event.preventDefault();
+
+  const title = document.querySelector('input[name="post-title"]').value.trim();
+  const content = document.querySelector('input[name="content"]').value.trim();
+  console.log(title);
+  console.log(content);
+
+  const id = window.location.toString().split('/')[
+    window.location.toString().split('/').length - 1
+  ];
+    
+    const response = await fetch(`/api/posts/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+        post_id: id,
+        title,
+        content
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.ok) {
+      document.location.replace('/dashboard/');
+    } else {
+      alert(response.statusText);
+    }
+
+}
+
+document.querySelector('.edit-post-form').addEventListener('submit', editFormHandler);
