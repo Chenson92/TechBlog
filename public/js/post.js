@@ -1,33 +1,8 @@
-// Create a new post
-const createPost = async (event) => {
-  event.preventDefault();
-  const title = document.querySelector('input[name="post-title"]').value.trim();
-  const content = document.querySelector('input[name="content"]').value.trim();
-
-  if (title && content) {
-    const response = await fetch(`/api/posts`, {
-      method: "POST",
-      body: JSON.stringify({
-        title,
-        content,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      document.location.replace("/dashboard");
-    } else {
-      alert("Failed to create post");
-    }
-  }
-};
-
-document.querySelector(".new-post-form").addEventListener("submit", createPost);
-
 // Delete a post
 
 const delButtonHandler = async (event) => {
+  event.preventDefault();
+  console.log(event.target.hasAttribute("data-id"));
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
 
@@ -36,7 +11,7 @@ const delButtonHandler = async (event) => {
     });
 
     if (response.ok) {
-      document.location.replace("/dashbard");
+      document.location.replace("/dashboard");
     } else {
       alert("Failed to delete post");
     }
@@ -44,7 +19,7 @@ const delButtonHandler = async (event) => {
 };
 
 document
-  .querySelector(".post-list")
+  .querySelector("#delete-btn")
   .addEventListener("click", delButtonHandler);
 
 // Edit
@@ -71,7 +46,7 @@ async function editFormHandler(event) {
   });
 
   if (response.ok) {
-    document.location.replace("/dashboard/");
+    document.location.replace("/dashboard");
   } else {
     alert(response.statusText);
   }
