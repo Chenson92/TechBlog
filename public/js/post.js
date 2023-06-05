@@ -2,7 +2,7 @@
 
 const delButtonHandler = async (event) => {
   event.preventDefault();
-  console.log(event.target.hasAttribute("data-id"));
+  // console.log(event.target.hasAttribute("data-id"));
   if (event.target.hasAttribute("data-id")) {
     const id = event.target.getAttribute("data-id");
 
@@ -18,9 +18,11 @@ const delButtonHandler = async (event) => {
   }
 };
 
-document
-  .querySelector("#delete-btn")
-  .addEventListener("click", delButtonHandler);
+const deleteButton = document.querySelector("#delete-btn");
+
+if (deleteButton != null) {
+  deleteButton.addEventListener("click", delButtonHandler);
+}
 
 // Edit
 async function editFormHandler(event) {
@@ -52,6 +54,8 @@ async function editFormHandler(event) {
   }
 }
 
-document
-  .querySelector(".edit-post-form")
-  .addEventListener("submit", editFormHandler);
+const submitButton = document.querySelector(".edit-post-form");
+
+if (submitButton != null) {
+  submitButton.addEventListener("submit", editFormHandler);
+}
