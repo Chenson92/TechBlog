@@ -23,4 +23,7 @@ const createPost = async (event) => {
   }
 };
 
-document.querySelector(".new-post-form").addEventListener("submit", createPost);
+const createButton = document.querySelector(".new-post-form");
+if (createButton != null) {
+  createButton.addEventListener("submit", createPost);
+}
