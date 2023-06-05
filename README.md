@@ -17,7 +17,7 @@ This is a platform where developers can share their thoughts, insights, and know
 ## Installation
 
 - Install Express.js package
-- Uses the MySQL2 package to connect to a MySQL database.
+- Uses the MySQL2 and Sequelize packages to connect to a MySQL database.
 
 ## Screenshot
 
@@ -25,8 +25,8 @@ This is a platform where developers can share their thoughts, insights, and know
 
 ## Links
 
-- GitHub: https://github.com/Chenson92/Employee-Tracker
-- Heroku:
+- GitHub: https://github.com/Chenson92/TechBlog
+- Heroku: https://techblog-by-doris.herokuapp.com/
 
 ## License
 
